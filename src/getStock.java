@@ -130,6 +130,7 @@ public class getStock {
 
 	}
 
+	//分析获得的股票信息
 	public static void execGetS(Boolean t, String song) throws IOException {
 
 		getStock.song = song;
@@ -161,7 +162,7 @@ public class getStock {
 		}
 
 		share.OpeningQuotation = shareOut_a.get(0);// 开盘价
-		share.YesterdayClosingQuotation = shareOut_a.get(1);// 昨收价
+		share.YesterdayClosing = shareOut_a.get(1);// 昨收价
 		share.latestPrice = shareOut_a.get(2); // 当前价
 		share.CeilingPrice = shareOut_a.get(3); // 最高价
 		share.BottomPrice = shareOut_a.get(4); // 最低价
@@ -181,16 +182,22 @@ public class getStock {
 		share.date = shareOut_a.get(29);
 		share.time = shareOut_a.get(30);
 
+		float volumeOfRiseDrop = Float.parseFloat(share.latestPrice)
+				- Float.parseFloat(share.YesterdayClosing); // 涨跌额
+
+		float RateOfChange = volumeOfRiseDrop
+				/ Float.parseFloat(share.YesterdayClosing);
+
 		System.out.println("股票名称:" + share.StockName + "\n股票代码:" + share.Ticker
-				+ "\n开盘价:" + share.OpeningQuotation + "\n昨收价:"
-				+ share.YesterdayClosingQuotation + "\n当前价:"
-				+ share.latestPrice + "\n最高价:" + share.CeilingPrice + "\n最低价:"
-				+ share.BottomPrice + "\n买一价:" + share.PriceOfbuy1 + "\n卖一价:"
-				+ share.PriceOfsell1 + "\n成交量:"
-				+ Integer.parseInt(share.Volume) / 100 + "手" + "\n成交额:"
-				+ Long.parseLong(share.Turnover) / 10000 + "万元" + "\n买一手:"
-				+ Integer.parseInt(share.getbuyN(0)) / 100 + "手" + "	买一价:"
-				+ share.getbuyN(1) + "\n买二手:"
+				+ "\n\n当前价:" + share.latestPrice + "\n涨跌额:" + volumeOfRiseDrop
+				+ "\n涨跌幅:" + RateOfChange * 100 + "%" + "\n\n开盘价:"
+				+ share.OpeningQuotation + "\n昨收价:" + share.YesterdayClosing
+				+ "\n最高价:" + share.CeilingPrice + "\n最低价:" + share.BottomPrice
+				+ "\n买一价:" + share.PriceOfbuy1 + "\n卖一价:" + share.PriceOfsell1
+				+ "\n成交量:" + Integer.parseInt(share.Volume) / 100 + "手"
+				+ "\n成交额:" + Long.parseLong(share.Turnover) / 10000 + "万元"
+				+ "\n买一手:" + Integer.parseInt(share.getbuyN(0)) / 100 + "手"
+				+ "	买一价:" + share.getbuyN(1) + "\n买二手:"
 				+ Integer.parseInt(share.getbuyN(2)) / 100 + "手" + "	买二价:"
 				+ share.getbuyN(3) + "\n买三手:"
 				+ Integer.parseInt(share.getbuyN(4)) / 100 + "手" + "	买三价:"
@@ -208,7 +215,7 @@ public class getStock {
 				+ Integer.parseInt(share.getsellN(6)) / 100 + "手" + "	卖四价:"
 				+ share.getsellN(7) + "\n卖五手:"
 				+ Integer.parseInt(share.getsellN(8)) / 100 + "手" + "	卖五价:"
-				+ share.getsellN(9) + "\n\n日期:" + share.date + "	时间:"
+				+ share.getsellN(9) + "\n\n交易日期:" + share.date + "\n交易时间:"
 				+ share.time
 
 		);

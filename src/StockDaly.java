@@ -9,7 +9,7 @@ public class StockDaly {
 	public String StockName; // 股票名字
 	public String Ticker; // 股票代码
 	public String OpeningQuotation; // 今日开盘价
-	public String YesterdayClosingQuotation; // 昨日收盘价
+	public String YesterdayClosing; // 昨日收盘价
 	public String latestPrice; // 当前价格
 	public String CeilingPrice; // 最高价
 	public String BottomPrice; // 今日最低价
